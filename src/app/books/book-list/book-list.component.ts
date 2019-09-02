@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Book } from '../book.model';
 import { Newspaper } from '../newspaper.model';
+import { BookService } from '../book.service';
 
 @Component({
   selector: 'app-book-list',
@@ -20,9 +21,12 @@ export class BookListComponent implements OnInit {
     new Newspaper('Magyar Nemzet'),
   ];
 
-  constructor() { }
+  constructor(private bookService: BookService) { }
 
   ngOnInit() {
+    this.bookService.getBooks().subscribe(params => {
+      this.books = this.books.concat(params);
+    });
   }
 
 }
